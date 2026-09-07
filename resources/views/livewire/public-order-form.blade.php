@@ -119,7 +119,16 @@
 
                     <div class="field">
                         <label for="gallonQuantity">Jumlah galon</label>
-                        <input id="gallonQuantity" type="number" min="1" wire:model.live="gallonQuantity" />
+                        <input
+                            id="gallonQuantity"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            min="1"
+                            wire:model.live="gallonQuantity"
+                            placeholder="Masukkan jumlah"
+                            oninput="const value = this.value.replace(/[^0-9]/g, '').slice(0, 3); this.value = value === '' ? '' : String(Math.max(1, Number(value)));"
+                        />
                         @error('gallonQuantity')
                             <span class="error-text">{{ $message }}</span>
                         @enderror

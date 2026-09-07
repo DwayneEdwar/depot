@@ -22,7 +22,7 @@ class PublicOrderForm extends Component
     public string $address = '';
 
     #[Rule('required|integer|min:1|max:100')]
-    public int $gallonQuantity = 1;
+    public $gallonQuantity = 1;
 
     #[Rule('required|date')]
     public string $deliveryDate = '';
@@ -48,6 +48,13 @@ class PublicOrderForm extends Component
 
     public function updatedGallonQuantity(): void
     {
+        if ($this->gallonQuantity === '' || $this->gallonQuantity === null) {
+            $this->gallonQuantity = null;
+
+            return;
+        }
+
+        $this->gallonQuantity = max(1, (int) $this->gallonQuantity);
         $this->recalculatePrice();
     }
 
@@ -68,7 +75,8 @@ class PublicOrderForm extends Component
             $this->unitPrice = (int) \App\Models\SiteSetting::value('water_price_per_gallon', 15000);
         }
 
-        $this->totalPrice = $this->gallonQuantity * $this->unitPrice;
+        $quantity = max(1, (int) ($this->gallonQuantity ?? 1));
+        $this->totalPrice = $quantity * $this->unitPrice;
     }
 
     public function submit(): void

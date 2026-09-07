@@ -423,6 +423,14 @@
                 background: #f8fbff;
                 color: var(--secondary);
                 transition: 0.2s ease;
+                appearance: textfield;
+                -moz-appearance: textfield;
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
             }
 
             input:focus,

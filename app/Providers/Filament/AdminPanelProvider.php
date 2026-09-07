@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\AdminAccountSettings;
 use App\Filament\Resources\SiteSettings\SiteSettingsResource;
 use App\Filament\Widgets\AdminBrandingHero;
 use App\Filament\Widgets\LoyalCustomersWidget;
@@ -35,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('Depot Air Minum')
             ->login()
+            ->profile(AdminAccountSettings::class)
             ->colors([
                 'primary' => Color::Emerald,
                 'gray' => Color::Slate,
